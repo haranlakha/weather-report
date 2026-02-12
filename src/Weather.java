@@ -51,6 +51,21 @@ public class Weather {
 
             System.out.println("Response Body: " + responseBody);
 
+            String[] locationArray = responseBody.split(",");
+
+            //Store the Latitude and Longitude for future use
+            for(String currentString : locationArray) {
+                String[] currentArray = currentString.split(":");
+                if(currentString.startsWith("\"lat\"")) {
+                    currentLocation.setLatitude(currentArray[1]);
+                }
+                if(currentString.startsWith("\"lon\"")) {
+                    currentLocation.setLongitude(currentArray[1]);
+                }
+            }
+
+            System.out.println("Latitude of " + currentLocation.getLocationName() + ": " + currentLocation.getLatitude());
+            System.out.println("Longitude of " + currentLocation.getLocationName() + ": " +currentLocation.getLongitude());
         }
 
         connection.disconnect();
