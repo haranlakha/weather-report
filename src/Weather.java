@@ -33,7 +33,7 @@ public class Weather {
             currentUser.setApiKey(scnr.nextLine());
         }
 
-        URL currentUrl = new URL("https://api.openweathermap.org/geo/1.0/direct?q=" + currentLocation.getLocationName() + "&limit=1&appid=" + currentUser.getApiKey());
+        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentLocation.getLocationName() + "&appid=" + currentUser.getApiKey());
 
         HttpURLConnection connection = (HttpURLConnection) currentUrl.openConnection();
         connection.setRequestMethod("GET");
@@ -50,22 +50,6 @@ public class Weather {
             String responseBody = reader.lines().collect(Collectors.joining());
 
             System.out.println("Response Body: " + responseBody);
-
-            String[] locationArray = responseBody.split(",");
-
-            //Store the Latitude and Longitude for future use
-            for(String currentString : locationArray) {
-                String[] currentArray = currentString.split(":");
-                if(currentString.startsWith("\"lat\"")) {
-                    currentLocation.setLatitude(currentArray[1]);
-                }
-                if(currentString.startsWith("\"lon\"")) {
-                    currentLocation.setLongitude(currentArray[1]);
-                }
-            }
-
-            System.out.println("Latitude of " + currentLocation.getLocationName() + ": " + currentLocation.getLatitude());
-            System.out.println("Longitude of " + currentLocation.getLocationName() + ": " +currentLocation.getLongitude());
         }
 
         connection.disconnect();
