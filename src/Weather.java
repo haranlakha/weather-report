@@ -12,6 +12,7 @@ public class Weather {
         Scanner scnr  = new Scanner(System.in);
 
         User currentUser = new User();
+        String responseBody;
 
         currentUser.setApiKey(""); //Populate with API key if not using prompt
 
@@ -47,7 +48,7 @@ public class Weather {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(connection.getInputStream()))) {
 
-            String responseBody = reader.lines().collect(Collectors.joining());
+             responseBody = reader.lines().collect(Collectors.joining());
 
             System.out.println("Response Body: " + responseBody);
         }
