@@ -39,7 +39,7 @@ public class Weather {
             currentUser.setApiKey(scnr.nextLine());
         }
 
-        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentUser.getLocation() + "&appid=" + currentUser.getApiKey());
+        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentUser.getLocation() + "&appid=" + currentUser.getApiKey() + "&units=metric");
 
         HttpURLConnection connection = (HttpURLConnection) currentUrl.openConnection();
         connection.setRequestMethod("GET");
@@ -55,7 +55,7 @@ public class Weather {
 
              responseBody = reader.lines().collect(Collectors.joining());
 
-            System.out.println("Response Body: " + responseBody);
+            System.out.println("Response Body: " + responseBody + "\n");
         }
 
         connection.disconnect();
