@@ -1,10 +1,17 @@
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Scanner;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
+
+import json.*;
 
 public class Weather {
     public static void main(String[] args) throws IOException {
@@ -21,12 +28,10 @@ public class Weather {
 
         System.out.println("Hello " + currentUser.getName() + "!\n"+"Welcome to the Weather Report Program");
 
-        Location currentLocation = new Location();
-
         System.out.println("Where are you located?");
-        currentLocation.setLocationName(scnr.nextLine());
+        currentUser.setLocation(scnr.nextLine());
 
-        System.out.println("We will get the weather for " + currentLocation.getLocationName());
+        System.out.println("We will get the weather for " + currentUser.getLocation());
 
 
         if(currentUser.getApiKey().isEmpty()) {
@@ -34,7 +39,7 @@ public class Weather {
             currentUser.setApiKey(scnr.nextLine());
         }
 
-        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentLocation.getLocationName() + "&appid=" + currentUser.getApiKey());
+        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentUser.getLocation() + "&appid=" + currentUser.getApiKey());
 
         HttpURLConnection connection = (HttpURLConnection) currentUrl.openConnection();
         connection.setRequestMethod("GET");
@@ -55,8 +60,16 @@ public class Weather {
 
         connection.disconnect();
 
+        ObjectMapper objectMapper = new ObjectMapper();
 
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
+        WeatherResponse weatherResponse = objectMapper.readValue(responseBody, WeatherResponse.class);
 
+        StringWriter stringResponse = new StringWriter();
+        objectMapper.writeValue(stringResponse, weatherResponse);
+
+        System.out.println("weatherResponse JSON: " + stringResponse);
     }
 }
