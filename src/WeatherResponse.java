@@ -4,6 +4,7 @@ public class WeatherResponse {
 
 //Class for corresponding to returned Java Response
 
+
     /*
     EXAMPLE API RESPONSE
     {
@@ -36,6 +37,9 @@ public class WeatherResponse {
         "deg": 83,
         "gust": 5.36
       },
+      "rain": {
+        "1h": 2.61
+      },
       "clouds": {
         "all": 100
       },
@@ -53,6 +57,9 @@ public class WeatherResponse {
       "cod": 200
     }
      */
+
+
+
 
     //single variables
     private String base;
@@ -125,53 +132,5 @@ public class WeatherResponse {
 
     public void setCod(Integer cod) {
         this.cod = cod;
-    }
-
-    public CoordJSON getCoord() {
-        return coord;
-    }
-
-    public void setCoord(CoordJSON coord) {
-        this.coord = coord;
-    }
-
-    public WeatherJSON[] getWeather() {
-        return weather;
-    }
-
-    public void setWeather(WeatherJSON[] weather) {
-        this.weather = weather;
-    }
-
-    public MainJSON getMain() {
-        return main;
-    }
-
-    public void setMain(MainJSON main) {
-        this.main = main;
-    }
-
-    public WindJSON getWind() {
-        return wind;
-    }
-
-    public void setWind(WindJSON wind) {
-        this.wind = wind;
-    }
-
-    public CloudsJSON getClouds() {
-        return clouds;
-    }
-
-    public void setClouds(CloudsJSON clouds) {
-        this.clouds = clouds;
-    }
-
-    public SysJSON getSys() {
-        return sys;
-    }
-
-    public void setSys(SysJSON sys) {
-        this.sys = sys;
     }
 }

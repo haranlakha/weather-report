@@ -1,17 +1,10 @@
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Scanner;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
-
-import json.*;
 
 public class Weather {
     public static void main(String[] args) throws IOException {
@@ -21,17 +14,19 @@ public class Weather {
         User currentUser = new User();
         String responseBody;
 
-        currentUser.setApiKey("edf70e483a22721b3b98898886058d22"); //Populate with API key if not using prompt
+        currentUser.setApiKey(""); //Populate with API key if not using prompt
 
         System.out.println("Please enter your name: ");
         currentUser.setName(scnr.nextLine());
 
         System.out.println("Hello " + currentUser.getName() + "!\n"+"Welcome to the Weather Report Program");
 
-        System.out.println("Where are you located?");
-        currentUser.setLocation(scnr.nextLine());
+        Location currentLocation = new Location();
 
-        System.out.println("We will get the weather for " + currentUser.getLocation());
+        System.out.println("Where are you located?");
+        currentLocation.setLocationName(scnr.nextLine());
+
+        System.out.println("We will get the weather for " + currentLocation.getLocationName());
 
 
         if(currentUser.getApiKey().isEmpty()) {
@@ -39,7 +34,7 @@ public class Weather {
             currentUser.setApiKey(scnr.nextLine());
         }
 
-        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentUser.getLocation() + "&appid=" + currentUser.getApiKey());
+        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentLocation.getLocationName() + "&appid=" + currentUser.getApiKey());
 
         HttpURLConnection connection = (HttpURLConnection) currentUrl.openConnection();
         connection.setRequestMethod("GET");
@@ -60,16 +55,8 @@ public class Weather {
 
         connection.disconnect();
 
-        ObjectMapper objectMapper = new ObjectMapper();
 
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 
-        WeatherResponse weatherResponse = objectMapper.readValue(responseBody, WeatherResponse.class);
 
-        StringWriter stringResponse = new StringWriter();
-        objectMapper.writeValue(stringResponse, weatherResponse);
-
-        System.out.println("weatherResponse JSON: " + stringResponse);
     }
 }
