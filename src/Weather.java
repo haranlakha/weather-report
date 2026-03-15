@@ -2,13 +2,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.*;
+import java.util.Properties;
 import java.util.Scanner;
 import java.net.URL;
 import java.net.HttpURLConnection;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
 import json.*;
@@ -21,7 +19,17 @@ public class Weather {
         User currentUser = new User();
         String responseBody;
 
-        currentUser.setApiKey(""); //Populate with API key if not using prompt
+        String fileName = "config.properties"; //file name for API_KEY
+
+        Properties properties = new Properties();
+        properties.load(new FileInputStream(fileName));
+
+        String apiKey = properties.getProperty("API_KEY");
+
+        if (apiKey == null) {
+            System.out.println("Please enter a valid API Key:");
+            apiKey = scnr.nextLine();
+        }
 
         System.out.println("Please enter your name: ");
         currentUser.setName(scnr.nextLine());
@@ -33,13 +41,7 @@ public class Weather {
 
         System.out.println("We will get the weather for " + currentUser.getLocation());
 
-
-        if(currentUser.getApiKey().isEmpty()) {
-            System.out.println("Enter API Key for Endpoint: ");
-            currentUser.setApiKey(scnr.nextLine());
-        }
-
-        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentUser.getLocation() + "&appid=" + currentUser.getApiKey() + "&units=metric");
+        URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentUser.getLocation() + "&appid=" + apiKey + "&units=metric");
 
         HttpURLConnection connection = (HttpURLConnection) currentUrl.openConnection();
         connection.setRequestMethod("GET");
