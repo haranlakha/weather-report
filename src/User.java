@@ -1,7 +1,6 @@
 public class User {
 
     private String name;
-    private String apiKey;
     private String location;
 
     public void setName(String name) {
@@ -10,14 +9,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-    }
-
-    public String getApiKey() {
-        return apiKey;
     }
 
     public String getLocation() {
