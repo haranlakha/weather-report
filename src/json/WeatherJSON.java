@@ -40,7 +40,7 @@ public class WeatherJSON {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getId() + ", " + getMain() + ", " + getDescription() + ", " + getIcon();
     }
 }
