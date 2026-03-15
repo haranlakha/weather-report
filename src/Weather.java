@@ -48,16 +48,15 @@ public class Weather {
         connection.setRequestProperty("Accept", "application/json");
 
         int httpResponseCode = connection.getResponseCode();
-        if(httpResponseCode != HttpURLConnection.HTTP_OK) {
+
+        if (httpResponseCode != HttpURLConnection.HTTP_OK) {
             throw new RuntimeException("HTTP GET request failed with response code: " + httpResponseCode);
         }
 
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(connection.getInputStream()))) {
-
-             responseBody = reader.lines().collect(Collectors.joining());
-
-            System.out.println("Response Body: " + responseBody + "\n");
+                    responseBody = reader.lines().collect(Collectors.joining());
+                    System.out.println("Response Body: " + responseBody + "\n");
         }
 
         connection.disconnect();

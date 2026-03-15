@@ -1,5 +1,7 @@
 import json.*;
 
+import java.util.Arrays;
+
 public class WeatherResponse {
 
 //Class for corresponding to returned Java Response
@@ -180,5 +182,14 @@ public class WeatherResponse {
 
     public void setSys(SysJSON sys) {
         this.sys = sys;
+    }
+
+    @Override
+    public String toString() {
+        return getBase() + ", " + getVisibility() + ", " + getDt() + "," + getTimezone() + ", " + getId() +
+                getName() + ", " + getCod() + ", " + getCoord() + ", " + Arrays.toString(getWeather()) + ", " + getMain() +
+                ", " + getWind() + ", " + getClouds() + ", " + getSys();
+
+
     }
 }

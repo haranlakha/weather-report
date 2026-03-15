@@ -85,7 +85,7 @@ public class MainJSON {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getTemp() + ", " + getFeels_like() + ", " + getTemp_main() + ", " + getTemp_min() + ", " + getTemp_max() +
                 ", " + getPressure() + ", " + getHumidity() + ", " + getSea_level() + ", " + getGrnd_level();
     }
