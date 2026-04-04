@@ -66,7 +66,7 @@ public class WeatherResponse {
     //single variables
     private String base;
     private Integer visibility;
-    private Integer dt;
+    private long dt;
     private Integer timezone;
     private Integer id;
     private String name;
@@ -96,11 +96,11 @@ public class WeatherResponse {
         this.visibility = visibility;
     }
 
-    public Integer getDt() {
+    public long getDt() {
         return dt;
     }
 
-    public void setDt(Integer dt) {
+    public void setDt(long dt) {
         this.dt = dt;
     }
 

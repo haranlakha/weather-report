@@ -3,6 +3,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.*;
+import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 import java.net.URL;
@@ -31,15 +32,10 @@ public class Weather {
             apiKey = scnr.nextLine();
         }
 
-        System.out.println("Please enter your name: ");
-        currentUser.setName(scnr.nextLine());
+        System.out.println("---Welcome to the Weather Report Program---");
 
-        System.out.println("Hello " + currentUser.getName() + "!\n"+"Welcome to the Weather Report Program");
-
-        System.out.println("Where are you located?");
+        System.out.println("Enter location:");
         currentUser.setLocation(scnr.nextLine());
-
-        System.out.println("We will get the weather for " + currentUser.getLocation());
 
         URL currentUrl = new URL("http://api.openweathermap.org/data/2.5/weather?q=" + currentUser.getLocation() + "&appid=" + apiKey + "&units=metric");
 
@@ -56,7 +52,6 @@ public class Weather {
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(connection.getInputStream()))) {
                     responseBody = reader.lines().collect(Collectors.joining());
-                    System.out.println("Response Body: " + responseBody + "\n");
         }
 
         connection.disconnect();
@@ -71,6 +66,18 @@ public class Weather {
         StringWriter stringResponse = new StringWriter();
         objectMapper.writeValue(stringResponse, weatherResponse);
 
-        System.out.println("weatherResponse JSON: " + stringResponse);
+        Date currentDate = new Date(weatherResponse.getDt() * 1000);
+        Date sunrise = new Date(weatherResponse.getSys().getSunrise() * 1000);
+        Date sunset = new Date(weatherResponse.getSys().getSunset() * 1000);
+
+        System.out.println("Current Weather for " + weatherResponse.getName());
+
+        System.out.println("---" + currentDate + "---");
+
+        System.out.println("Temperature: " + weatherResponse.getMain().getTemp() + "°");
+        System.out.println("Sunrise: " + sunrise);
+        System.out.println("Sunset: " + sunset);
+
+
     }
 }
