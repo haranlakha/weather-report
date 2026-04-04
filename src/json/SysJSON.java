@@ -5,8 +5,8 @@ public class SysJSON {
     private Integer type;
     private Integer id;
     private String country;
-    private Integer sunrise;
-    private Integer sunset;
+    private long sunrise;
+    private long sunset;
 
     public Integer getType() {
         return type;
@@ -32,19 +32,19 @@ public class SysJSON {
         this.country = country;
     }
 
-    public Integer getSunrise() {
+    public long getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(Integer sunrise) {
+    public void setSunrise(long sunrise) {
         this.sunrise = sunrise;
     }
 
-    public Integer getSunset() {
+    public long getSunset() {
         return sunset;
     }
 
-    public void setSunset(Integer sunset) {
+    public void setSunset(long sunset) {
         this.sunset = sunset;
     }
 
