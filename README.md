@@ -1,6 +1,6 @@
-# Weather Report
+# Weather Report REST Program
 
-Weather Report application using [OpenWeatherAPI](https://openweathermap.org/api) data.
+Weather Report REST program using [OpenWeatherAPI](https://openweathermap.org/api) data.
 
 ## Setup
 
@@ -9,7 +9,7 @@ You will need to create an account with OpenWeatherAPI and get an API key. This 
 ## Installation
 
 ```
-git clone https://github.com/haranlakha/weather-report.git
+git clone https://github.com/haranlakha/weather-report-rest.git
 ```
 
 ## Compile code
