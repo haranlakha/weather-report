@@ -1,4 +1,4 @@
-# Weather Repor
+# Weather Report
 
 Weather Report program using [OpenWeatherAPI](https://openweathermap.org/api) data.
 
